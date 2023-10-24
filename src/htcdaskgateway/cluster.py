@@ -67,7 +67,10 @@ class HTCGatewayCluster(GatewayCluster):
         condor_logdir = f"{tmproot}/condor"
         credentials_dir = f"{tmproot}/dask-credentials"
         worker_space_dir = f"{tmproot}/dask-worker-space"
-        image_name = f"/cvmfs/unpacked.cern.ch/registry.hub.docker.com/coffeateam/coffea-dask-cc7-gateway:latest"
+        image_prefix = "/cvmfs/unpacked.cern.ch/registry.hub.docker.com/coffeateam"
+
+        image_name = f"{image_prefix}/coffea-dask-cc7-gateway:0.7.21-fastjet-3.4.0.1-gc3d707c"
+
         os.makedirs(tmproot, exist_ok=True)
         os.makedirs(condor_logdir, exist_ok=True)
         os.makedirs(credentials_dir, exist_ok=True)
