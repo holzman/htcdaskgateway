@@ -23,12 +23,11 @@ class HTCGatewayCluster(GatewayCluster):
     def __init__(self, **kwargs):
         self.scheduler_proxy_ip = kwargs.pop('', '131.225.218.222')
         self.batchWorkerJobs = []
-        self.cluster_options = kwargs.get('cluster_options', 'image')
-        if self.cluster_options.image == "default":
-            self.cluster_options.image = 'coffeateam/coffea-dask-almalinux8:2024.4.0-py3.10'
-            print("Selected Image: ", self.cluster_options.image)
-        else:
-            print("Selected Image: ", self.cluster_options.image)
+        self.defaultImage = 'coffeateam/coffea-dask-almalinux8:2024.4.0-py3.10'
+        self.cluster_options = kwargs.get('cluster_options', {'image': self.defaultImage})
+        if not self.cluster_options.image:
+            self.cluster_options.image = self.defaultImage
+        print("Selected Image: ", self.cluster_options.image)
         super().__init__(**kwargs)
    
     # We only want to override what's strictly necessary, scaling and adapting are the most important ones
